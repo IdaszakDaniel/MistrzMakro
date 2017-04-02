@@ -1,5 +1,5 @@
 {
-  "question":[
+  "questions":[
     {
       "id": "1",
       "name": "bułka",
@@ -17,6 +17,6 @@
       "carb": 80,
       "fat": 20,
       "img": "img2.jpg"
-    },
+    }
   ]
 }
