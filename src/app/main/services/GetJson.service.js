@@ -9,6 +9,7 @@
       return {
         getData:  function() {
           return $http.get('answers.json').then(function(response) {
+            console.log(response);
         return response.data;
       });
         }
