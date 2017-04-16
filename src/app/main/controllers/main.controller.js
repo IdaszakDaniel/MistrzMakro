@@ -12,7 +12,7 @@
 
     var Model = new Macro();
     $scope.Model = Model;
-        
+
     promiseAnswers.then(function(data){
       data.questions.forEach(function(answer) {
         $scope.Model.setId(answer.id);
@@ -25,6 +25,7 @@
 
         ProductModel.addItem($scope.Model);
         console.log(ProductModel.listOfItems());
+        //console.log("here: ",ProductModel.getQuestion(0));
         $scope.Model = new Macro();
       });
     });

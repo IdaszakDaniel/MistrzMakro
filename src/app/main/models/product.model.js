@@ -17,6 +17,14 @@
         return _list;
       },
 
+      getQuestion: function(id) {
+        if(id < _list.length) {
+          return _list[id];
+        } else {
+          return false;
+        }
+      }
+
     }
   }
 })();

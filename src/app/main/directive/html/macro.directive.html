@@ -1,0 +1,30 @@
+<div class="container" ng-show="inProgress">
+	<div class="row">
+		<div class="col-md-12">
+			<div ng-show="!quizEnd">
+				<img ng-src="/app/images/{{macro.img}}" alt="">
+				<h2>{{macro.name}}</h2>
+				<p>Kcal:</p><input type="number" name="macro1">
+				<p>Białko:</p><input type="number" name="macro2">
+				<p>Węglowodany:</p><input type="number" name="macro3">
+				<p>Tłuszcz:</p><input type="number" name="macro4">
+				<button ng-click="check()" ng-show="">Submit</button>
+			
+				<div ng-show="">
+					<button ng-click="next()">Next</button>
+				</div>
+			</div>
+
+			<div ng-show="quizEnd">
+				<button ng-click="reset()">Play again</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="container" ng-show="!inProgress">
+	<div class="row">
+		<button ng-click="start()">Start</button>
+	</div>
+</div>
