@@ -22,7 +22,6 @@
 
 <body>
   <div class="container" ng-controller="MainController as main">
-    <h1 class="title">QuizApp</h1>
     <quiz/>
   </div>
 </body>
@@ -39,6 +38,7 @@
     <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
     <!-- inject:js -->
     <script src="app/index.module.js"></script>
+    <script src="app/main/directive/js/macro.directive.js"></script>
     <script src="app/main/services/GetJson.service.js"></script>
     <script src="app/main/models/product.model.js"></script>
     <script src="app/main/models/macro.model.js"></script>
