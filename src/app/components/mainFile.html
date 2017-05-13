@@ -1,0 +1,35 @@
+<div class="container" ng-show="c.inProgress">
+	<div class="row">
+		<div class="col-md-12">
+
+			<div ng-show="!c.quizEnd">
+				<h2>{{name}}</h2>
+				<img ng-src="/assets/{{c.img}}">
+				<p>Kcal:</p><input type="number" ng-model="c.macro1">
+				<p ng-show="!c.answerMode">{{c.Res[0]}}</p>
+				<p>Białko:</p><input type="number" ng-model="c.macro2">
+				<p ng-show="!c.answerMode">{{c.Res[1]}}</p>
+				<p>Węglowodany:</p><input type="number" ng-model="c.macro3">
+				<p ng-show="!c.answerMode">{{c.Res[2]}}</p>
+				<p>Tłuszcz:</p><input type="number" ng-model="c.macro4">
+				<p ng-show="!c.answerMode">{{c.Res[3]}}</p>
+				<button ng-click="c.check()" ng-show="c.answerMode">Submit</button>
+			
+				<div ng-show="!c.answerMode">
+					<button ng-click="c.nextQuestion()">Next</button>
+				</div>
+			</div>
+
+			<div ng-show="c.quizEnd">
+				<button ng-click="c.reset()">Play again</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="container" ng-show="!c.inProgress">
+	<div class="row">
+		<button ng-click="c.start()">Start</button>
+	</div>
+</div>

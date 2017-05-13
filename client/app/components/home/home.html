@@ -1,0 +1,7 @@
+<div>
+  <input type="number" ng-model="c.amount">
+  <button ng-click="c.calculateToPLN()">CONVERT TO PLN</button>
+  <ul>
+    <li ng-repeat="listElement in c.convertedCurrency track by $index">Kurs: {{ c.currencyRate() }} Po przeliczeniu: {{ listElement | currency: "PLN" }}</li>
+  </ul>
+</div>

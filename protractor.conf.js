@@ -1,27 +1,31 @@
-'use strict';
-
-var paths = require('./.yo-rc.json')['generator-gulp-angular'].props.paths;
-
-// An example configuration file.
 exports.config = {
-  // The address of a running selenium server.
-  //seleniumAddress: 'http://localhost:4444/wd/hub',
-  //seleniumServerJar: deprecated, this should be set on node_modules/protractor/config.json
-
-  // Capabilities to be passed to the webdriver instance.
-  capabilities: {
-    'browserName': 'chrome'
-  },
-
+  framework: 'jasmine',
+  seleniumAddress: 'http://localhost:4444/wd/hub',
   baseUrl: 'http://localhost:3000',
+  suites: {
+    all: [
+      './e2e/initial-content.spec.js',
+      './e2e/add-item.spec.js'
+    ]
+  },
+  suite: 'all',
+  capabilities: {
+    browserName: 'chrome'
+  },
+  onPrepare: function onPrepare() {
+    require('babel-core/register');
 
-  // Spec patterns are relative to the current working directory when
-  // protractor is called.
-  specs: [paths.e2e + '/**/*.js'],
+    var SpecReporter = require('jasmine-spec-reporter');
+    jasmine.getEnv().addReporter(new SpecReporter({
+      displayStacktrace: 'none',
+      prefixes: {
+        success: '+ ',
+        failure: 'x ',
+        pending: '* '
+      }
+    }));
 
-  // Options to be passed to Jasmine-node.
-  jasmineNodeOpts: {
-    showColors: true,
-    defaultTimeoutInterval: 30000
+    browser.manage().window().setSize(1280, 1024);
+    console.log('We are going to use the following baseUrl during the tests:', browser.baseUrl); // eslint-disable-line no-console
   }
 };

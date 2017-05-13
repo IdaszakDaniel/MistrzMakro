@@ -1,113 +1,69 @@
-'use strict';
+module.exports = function (config) {
+  config.set({
+    // base path used to resolve all patterns
+    basePath: '',
 
-var path = require('path');
-var conf = require('./gulp/conf');
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: ['mocha', 'chai', 'sinon'],
 
-var _ = require('lodash');
-var wiredep = require('wiredep');
+    // list of files/patterns to load in the browser
+    files: [{ pattern: 'spec.bundle.js', watched: false }],
 
-var pathSrcHtml = [
-  path.join(conf.paths.src, '/**/*.html')
-];
+    // files to exclude
+    exclude: [],
 
-function listFiles() {
-  var wiredepOptions = _.extend({}, conf.wiredep, {
-    dependencies: true,
-    devDependencies: true
-  });
-
-  var patterns = wiredep(wiredepOptions).js
-    .concat([
-      path.join(conf.paths.src, '/app/**/*.module.js'),
-      path.join(conf.paths.src, '/app/**/*.js'),
-      path.join(conf.paths.src, '/**/*.spec.js'),
-      path.join(conf.paths.src, '/**/*.mock.js'),
-    ])
-    .concat(pathSrcHtml);
-
-  var files = patterns.map(function(pattern) {
-    return {
-      pattern: pattern
-    };
-  });
-  files.push({
-    pattern: path.join(conf.paths.src, '/assets/**/*'),
-    included: false,
-    served: true,
-    watched: false
-  });
-  return files;
-}
-
-module.exports = function(config) {
-
-  var configuration = {
-    files: listFiles(),
-
-    singleRun: true,
-
-    autoWatch: false,
-
-    ngHtml2JsPreprocessor: {
-      stripPrefix: conf.paths.src + '/',
-      moduleName: 'cartProject'
-    },
-
-    logLevel: 'WARN',
-
-    frameworks: ['phantomjs-shim', 'jasmine', 'jasmine-matchers', 'angular-filesort'],
-
-    angularFilesort: {
-      whitelist: [path.join(conf.paths.src, '/**/!(*.html|*.spec|*.mock).js')]
-    },
-
-    browsers : ['PhantomJS'],
-
-    plugins : [
-      'karma-phantomjs-launcher',
-      'karma-angular-filesort',
-      'karma-phantomjs-shim',
-      'karma-coverage',
-      'karma-jasmine',
-      'karma-spec-reporter',
-      'karma-jasmine-matchers',
-      'karma-ng-html2js-preprocessor'
+    plugins: [
+      require("karma-chai"),
+      require("karma-chrome-launcher"),
+      require("karma-mocha"),
+      require("karma-mocha-reporter"),
+      require("karma-sinon"),
+      require("karma-sourcemap-loader"),
+      require("karma-webpack")
     ],
 
-    coverageReporter: {
-      type : 'html',
-      dir : 'coverage/'
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: { 'spec.bundle.js': ['webpack', 'sourcemap'] },
+
+    webpack: {
+      devtool: 'inline-source-map',
+      module: {
+        loaders: [
+          { test: /\.js/, exclude: [/app\/lib/, /node_modules/], loader: 'babel' },
+          { test: /\.html/, loader: 'raw' },
+          { test: /\.less/, loader: 'style!css!less' },
+          { test: /\.css$/, loader: 'style!css' }
+        ]
+      }
     },
 
-    reporters: ['spec'],
+    webpackServer: {
+      noInfo: true // prevent console spamming when running in Karma!
+    },
 
-    proxies: {
-      '/assets/': path.join('/base/', conf.paths.src, '/assets/')
-    }
-  };
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    reporters: ['mocha'],
 
-  // This is the default preprocessors configuration for a usage with Karma cli
-  // The coverage preprocessor is added in gulp/unit-test.js only for single tests
-  // It was not possible to do it there because karma doesn't let us now if we are
-  // running a single test or not
-  configuration.preprocessors = {};
-  pathSrcHtml.forEach(function(path) {
-    configuration.preprocessors[path] = ['ng-html2js'];
+    // web server port
+    port: 9876,
+
+    // enable colors in the output
+    colors: true,
+
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
+
+    // toggle whether to watch files and rerun tests upon incurring changes
+    autoWatch: false,
+
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: ['Chrome'],
+
+    // if true, Karma runs tests once and exits
+    singleRun: true
   });
-
-  // This block is needed to execute Chrome on Travis
-  // If you ever plan to use Chrome and Travis, you can keep it
-  // If not, you can safely remove it
-  // https://github.com/karma-runner/karma/issues/1144#issuecomment-53633076
-  if(configuration.browsers[0] === 'Chrome' && process.env.TRAVIS) {
-    configuration.customLaunchers = {
-      'chrome-travis-ci': {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    };
-    configuration.browsers = ['chrome-travis-ci'];
-  }
-
-  config.set(configuration);
 };
