@@ -43,7 +43,6 @@ export default class Quiz {
     this.quizEnd = false;
     this.inProgress = true;
     this.getQuestion();
-    console.log(this.inProgress);
   }
 
   check(){
@@ -83,6 +82,7 @@ export default class Quiz {
   reset() {
     this.inProgress = false;
     this.score = 0;
+    this.start();
   }
 
 }
