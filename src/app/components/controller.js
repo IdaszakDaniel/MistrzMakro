@@ -25,6 +25,7 @@ export default class Quiz {
 
   init(){
     let answers = this.GetJson.getData();
+    console.log(answers);
     answers.then(data => {
       data.questions.forEach(answer => {
         this.productsList.add(answer.id,
