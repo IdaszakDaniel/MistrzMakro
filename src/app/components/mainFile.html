@@ -2,13 +2,15 @@
 	<div class="flip" ng-show="!c.quizEnd"> 
 		<div class="card" ng-class="{'flipped':isFlipped}">
 			<div class="face front"> 
-				<h2>{{c.name}}</h2>
-				<img ng-src="/assets/{{c.img}}">
-				<p>Kcal:</p><input type="number" ng-model="c.macro1">
-				<p>Białko:</p><input type="number" ng-model="c.macro2">
-				<p>Węglowodany:</p><input type="number" ng-model="c.macro3">
-				<p>Tłuszcz:</p><input type="number" ng-model="c.macro4">
-				<button class="nextBtn" ng-click="c.check(); isFlipped=!isFlipped" ng-show="c.answerMode">Submit</button>
+				<form name="c.MacroForm">
+					<h2>{{c.name}}</h2>
+					<img ng-src="/assets/{{c.img}}">
+					<p>Kcal:</p><input type="number" ng-model="c.macro1">
+					<p>Białko:</p><input type="number" ng-model="c.macro2">
+					<p>Węglowodany:</p><input type="number" ng-model="c.macro3">
+					<p>Tłuszcz:</p><input type="number" ng-model="c.macro4">
+					<button class="nextBtn" ng-click="isFlipped=!isFlipped; c.check();" ng-show="c.answerMode">Submit</button>
+				</form>
 			</div> 
 			<div class="face back"> 
 				<h2>{{c.name}}</h2>
@@ -22,17 +24,26 @@
 		</div> 
 	</div>
 	<div class="container" ng-class="{ 'start__outer' : c.quizEnd }">
-		<div ng-show="c.quizEnd" class="midButton">
-			<h1>Mistrz Makro</h1>
-			<button ng-click="c.reset()">Play again</button>
+		<div ng-show="c.quizEnd" class="midButton midButton--fin">
+			<div class="midButton--white">
+				<h3>Twoje makro na koniec dnia:</h3>
+				<p>Kalorie: {{c.result[0]}}</p>
+				<p>Białko: {{c.result[1]}}</p>
+				<p>Węglowodany: {{c.result[2]}}</p>
+				<p>Tłuszcze: {{c.result[3]}}</p>
+				<h1>Mistrz Makro</h1>
+				<button ng-click="c.reset()">Play again</button>
+			</div>
 		</div>
 	</div>
 </div>
 
 <div class="container" ng-class="{ 'start__outer' : !c.inProgress }">
 	<div class="midButton" ng-show="!c.inProgress">
-		<h1>Mistrz Makro</h1>
-		<button ng-click="c.start()">Start</button>
+		<div class="midButton--white">
+			<h1>Mistrz Makro</h1>
+			<button ng-click="c.start()">Start</button>
+		</div>
 	</div>
 </div>
 

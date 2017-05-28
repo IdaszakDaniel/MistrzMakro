@@ -19,6 +19,8 @@ export default class Quiz {
     this.fat;
     this.img = "";
     this.answerMode = false;
+    this.result = [0,0,0,0];
+
 
     this.init();
   }
@@ -47,9 +49,11 @@ export default class Quiz {
   }
 
   check(){
-    let test = function(modelData, viewData){
+    let i = 0;
+    let test = (modelData, viewData) => {
       if(!viewData) return "";
       if(modelData == viewData) return "idealnie!";
+      this.result[i++] += viewData - modelData;
       return modelData > viewData ? modelData - viewData + " za mało" : viewData - modelData + " za dużo";
     };
     this.Res = [];
@@ -77,13 +81,24 @@ export default class Quiz {
 
   nextQuestion() {
     this.id++;
+    this.formReset();
     this.getQuestion();
+
   }
 
   reset() {
     this.inProgress = false;
     this.score = 0;
+    this.result = [0,0,0,0];
     this.start();
+  }
+
+  formReset(){
+    this.MacroForm.$setPristine();
+    this.macro1 = "";
+    this.macro2 = "";
+    this.macro3 = "";
+    this.macro4 = "";
   }
 
 }
