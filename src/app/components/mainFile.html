@@ -5,11 +5,11 @@
 				<form name="c.MacroForm">
 					<h2>{{c.name}}</h2>
 					<img ng-src="/assets/{{c.img}}">
-					<p>Kcal:</p><input type="number" ng-model="c.macro1">
-					<p>Białko:</p><input type="number" ng-model="c.macro2">
-					<p>Węglowodany:</p><input type="number" ng-model="c.macro3">
-					<p>Tłuszcz:</p><input type="number" ng-model="c.macro4">
-					<button class="nextBtn" ng-click="isFlipped=!isFlipped; c.check();" ng-show="c.answerMode">Submit</button>
+					<p>Kcal:</p><input type="number" ng-model="c.macro1" min="0" ng-required='!(c.macro2 ||  c.macro3 || c.macro4)' ng-pattern="/^(0|[1-9][0-9]*)$/">
+					<p>Białko:</p><input type="number" ng-model="c.macro2" min="0" name="macro1" ng-pattern="/^(0|[1-9][0-9]*)$/">
+					<p>Węglowodany:</p><input type="number" ng-model="c.macro3" min="0" ng-pattern="/^(0|[1-9][0-9]*)$/">
+					<p>Tłuszcz:</p><input type="number" ng-model="c.macro4" min="0" ng-pattern="/^(0|[1-9][0-9]*)$/">
+					<button class="nextBtn"  ng-click="c.MacroForm.$valid ? isFlipped=!isFlipped : ''; c.MacroForm.$valid ? c.check() : ''" ng-show="c.answerMode">Submit</button>
 				</form>
 			</div> 
 			<div class="face back"> 

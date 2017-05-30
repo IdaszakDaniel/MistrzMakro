@@ -11,6 +11,10 @@ export default class ProductsList {
   getList(id){
   	return id < this.list.length ? this.list[id] : false; 
   }
+
+  listLength(){
+    return this.list.length;
+  }
 }
 
 class Macros {

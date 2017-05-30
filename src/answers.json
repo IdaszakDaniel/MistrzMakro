@@ -3,20 +3,74 @@
     {
       "id": "1",
       "name": "bułka",
-      "kcal": 600,
-      "protein": 30,
-      "carb": 60,
-      "fat": 6,
+      "kcal": 557,
+      "protein": 13,
+      "carb": 69,
+      "fat": 24,
       "img": "img1.jpg"
     },
     {
       "id": "2",
       "name": "pizza",
-      "kcal": 900,
-      "protein": 20,
-      "carb": 80,
-      "fat": 20,
+      "kcal": 365,
+      "protein": 15,
+      "carb": 39,
+      "fat": 16,
       "img": "img2.jpg"
+    },
+    {
+      "id": "3",
+      "name": "Drożdżówka ze serem",
+      "kcal": 307,
+      "protein": 10,
+      "carb": 50,
+      "fat": 7,
+      "img": "img3.jpg"
+    },
+    {
+      "id": "4",
+      "name": "hot dog francuski",
+      "kcal": 436,
+      "protein": 12,
+      "carb": 42,
+      "fat": 25,
+      "img": "img4.jpg"
+    },
+    {
+      "id": "5",
+      "name": "Jogurt owocowy",
+      "kcal": 223,
+      "protein": 8,
+      "carb": 28,
+      "fat": 8,
+      "img": "img5.jpg"
+    },
+    {
+      "id": "6",
+      "name": "Frytki",
+      "kcal": 331,
+      "protein": 3,
+      "carb": 41,
+      "fat": 17,
+      "img": "img6.jpg"
+    },
+    {
+      "id": "7",
+      "name": "Łazanki",
+      "kcal": 258,
+      "protein": 7,
+      "carb": 41,
+      "fat": 7,
+      "img": "img7.jpg"
+    },
+     {
+      "id": "8",
+      "name": "Hamburger",
+      "kcal": 832,
+      "protein": 25,
+      "carb": 118,
+      "fat": 32,
+      "img": "img8.jpg"
     }
   ]
 }

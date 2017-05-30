@@ -45,6 +45,7 @@ export default class Quiz {
     this.id = 0;
     this.quizEnd = false;
     this.inProgress = true;
+    this.ProductArray = this.shuffle(this.productsList.listLength());
     this.getQuestion();
   }
 
@@ -65,7 +66,7 @@ export default class Quiz {
   }
 
   getQuestion() {
-    var q = this.productsList.getList(this.id);
+    var q = this.productsList.getList(this.ProductArray[this.id]);
     if(q) {
       this.name = q.name;
       this.kcal = q.kcal;
@@ -83,7 +84,19 @@ export default class Quiz {
     this.id++;
     this.formReset();
     this.getQuestion();
+  }
 
+  shuffle(y){
+    let tab = [...Array(++y).keys()].splice(1);
+    let arr = [];
+    const x = --tab.length;
+    let z = x - 1;
+    while(arr.length < x){
+      let i = Math.floor((Math.random() * z--) + 0);
+      arr.push(tab[i]);
+      tab.splice(i, 1);
+    }
+    return arr;
   }
 
   reset() {
